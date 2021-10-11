@@ -31,8 +31,16 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Plan your time"),
+        backgroundColor: Colors.white10,
+        elevation: 0,
+        title: Text(
+            "Plan your time",
+          style: TextStyle(
+            color: Colors.black
+          ),
+        ),
       ),
       drawer: DrawerView(),
       body: _children[_selectedIndex],

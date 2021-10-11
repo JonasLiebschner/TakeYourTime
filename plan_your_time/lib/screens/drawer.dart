@@ -5,7 +5,7 @@ class DrawerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Drawer(
       child: Center(
         child: ListView(
           children: [
