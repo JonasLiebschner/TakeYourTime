@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plan_your_time/classes/item.dart';
+import 'package:plan_your_time/classes/task.dart';
+import 'package:plan_your_time/classes/tasklist.dart';
 import 'package:plan_your_time/screens/projects.dart';
 
 import 'drawer.dart';
@@ -16,11 +19,31 @@ class _LayoutState extends State<Layout> {
 
   int _selectedIndex = 1;
 
-  List<Widget> _children = <Widget>[
-    ListsScreen(),
-    HomeScreen(),
-    ProjectsScreen(),
-  ];
+  TaskList selectedItem;
+
+
+  @override
+  void initState() {
+    selectedItem = new TaskList("First List", Icons.assignment);
+    selectedItem.addTask(new Task("One", Icons.ondemand_video));
+    selectedItem.addTask(new Task("Two", Icons.ondemand_video));
+    selectedItem.addTask(new Task("Three"));
+    selectedItem.addTask(new Task("Four"));
+    selectedItem.addTask(new Task("Five"));
+    selectedItem.addTask(new Task("Six"));
+    selectedItem.addTask(new Task("Seven"));
+    selectedItem.addTask(new Task("Eight"));
+    selectedItem.addTask(new Task("Nine"));
+    selectedItem.addTask(new Task("Ten"));
+
+    _children = <Widget>[
+      ListsScreen(),
+      HomeScreen(selectedTasklist: selectedItem),
+      ProjectsScreen(),
+    ];
+  }
+
+  List<Widget> _children;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -36,7 +59,7 @@ class _LayoutState extends State<Layout> {
         backgroundColor: Colors.white10,
         elevation: 0,
         title: Text(
-            "Plan your time",
+            selectedItem.name,
           style: TextStyle(
             color: Colors.black
           ),
@@ -61,6 +84,10 @@ class _LayoutState extends State<Layout> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 5,
+        child: Icon(Icons.add),
       ),
     );
   }

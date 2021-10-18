@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plan_your_time/classes/item.dart';
+import 'package:plan_your_time/classes/tasklist.dart';
 import 'package:plan_your_time/widgets/custom_list_item.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+
+  final TaskList selectedTasklist;
+
+  const HomeScreen({this.selectedTasklist, Key key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -25,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
     listElements[0].addItem(Item("One.One", Icons.accessible_forward_rounded));
     listElements[0].addItem(Item("One.Two", Icons.assignment_late_outlined));
     listElements[0].items[0].addItem(Item("ABC", Icons.assignment_late_outlined));
+
+    listElements = widget.selectedTasklist.getTasks();
   }
 
   @override

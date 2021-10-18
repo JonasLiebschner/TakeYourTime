@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:plan_your_time/classes/item.dart';
+import 'package:plan_your_time/screens/taskview.dart';
 
 class CListItem extends StatefulWidget {
-
   final Item item;
 
   const CListItem({this.item, Key key}) : super(key: key);
@@ -14,43 +14,68 @@ class CListItem extends StatefulWidget {
 }
 
 class _CListItemState extends State<CListItem> {
-
   bool expanded = false;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 0,
-        color: Colors.white54,
-        child: _buildTile()
-    );
+    return Card(elevation: 0, color: Colors.transparent, child: _buildTile());
   }
 
   Widget _buildTile() {
     if (widget.item.items.isEmpty || !expanded) {
-      return ListTile(
+      return Card(
+        margin: const EdgeInsets.all(0),
+          child: ListTile(
+          //tileColor: Colors.white,
           leading: Icon(widget.item.icon),
           title: Text(widget.item.name),
-        onTap: () {
+          onTap: () {
+            setState(() {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return TaskView(item: widget.item);
+                }),
+              );
+              //this.expanded = !expanded;
+            });
+          },
+          onLongPress: () {
             setState(() {
               this.expanded = !expanded;
             });
         },
-      );
+      ));
     } else {
       return Column(
-        children: [
-          ListTile(
-            leading: Icon(widget.item.icon),
-            title: Text(widget.item.name),
-            onTap: () {
-              setState(() {
-                this.expanded = !expanded;
-              });
-            },
+        children: <Widget>[
+          Card(
+            //color: Colors.red,
+            margin: const EdgeInsets.all(0),
+            child: ListTile(
+              leading: Icon(widget.item.icon),
+              title: Text(widget.item.name),
+              onTap: () {
+                setState(() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return TaskView(item: widget.item);
+                    }),
+                  );
+                  //this.expanded = !expanded;
+                });
+              },
+              onLongPress: () {
+                setState(() {
+                  this.expanded = !expanded;
+                });
+              },
+            ),
           ),
           Container(
-            margin: const EdgeInsets.all(10),
+            //color: Colors.red,
+            margin: const EdgeInsets.only(left: 25, top: 5),
             child: ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
@@ -62,7 +87,6 @@ class _CListItemState extends State<CListItem> {
               },
             ),
           )
-          
         ],
       );
     }
