@@ -25,7 +25,9 @@ class _LayoutState extends State<Layout> {
   @override
   void initState() {
     selectedItem = new TaskList("First List", Icons.assignment);
-    selectedItem.addTask(new Task("One", Icons.ondemand_video));
+    Task taskOne = new Task("One", Icons.ondemand_video);
+    taskOne.addItem(new Task("One.One", Icons.ondemand_video));
+    selectedItem.addTask(taskOne);
     selectedItem.addTask(new Task("Two", Icons.ondemand_video));
     selectedItem.addTask(new Task("Three"));
     selectedItem.addTask(new Task("Four"));
