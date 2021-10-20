@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plan_your_time/classes/item.dart';
 import 'package:plan_your_time/classes/task.dart';
 import 'package:plan_your_time/classes/tasklist.dart';
+import 'package:plan_your_time/screens/newtask.dart';
 import 'package:plan_your_time/screens/projects.dart';
 
 import 'drawer.dart';
@@ -53,6 +54,17 @@ class _LayoutState extends State<Layout> {
     });
   }
 
+  void addTask(Task newTask) {
+    setState(() {
+      selectedItem.addTask(newTask);
+      _children = <Widget>[
+        ListsScreen(),
+        HomeScreen(selectedTasklist: selectedItem),
+        ProjectsScreen(),
+      ];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +102,19 @@ class _LayoutState extends State<Layout> {
       floatingActionButton: FloatingActionButton(
         elevation: 5,
         child: Icon(Icons.add),
+        onPressed: () {
+          if (_selectedIndex == 1) {
+            setState(() {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return NewTaskView(parentAction: addTask,);
+                }),
+              );
+              //this.expanded = !expanded;
+            });
+          }
+        },
       ),
     );
   }
